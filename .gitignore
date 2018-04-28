@@ -1,0 +1,7 @@
+pages/__pycache__/
+paramcase/__pycache__/
+__pycache__/
+config.json
+messages.log
+test-reports/
+test-reports\\devises_names.txt

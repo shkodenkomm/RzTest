@@ -21,7 +21,7 @@ class Smartphones(BasePageGoods):
         r.extend(list(map(lambda e: e.text + "\n", q)))
 
         for N in range(2,6):
-            self.w_xpath(N).click()
+            self.w_xpath(self.xpath_page.format(N)).click()
             sleep(3)
             q = self.w_xpathes(self.xpath_goods_names,10)
             r.extend(list(map(lambda e : e.text+"\n", q)))

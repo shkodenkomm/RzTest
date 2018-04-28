@@ -19,6 +19,7 @@ class RozetkaMain(BasePage):
 
     def load_page(self):
         self.drv.get(self.__url__)
+        self.w_xpath("//a[@data-lang='ua']", timeout=10).click()
         self.m_main = self.w_xpath("//nav[@class='m-main']", timeout=10)
         self.smart_tv_devises_link =  self.w_xpath("//a[contains(@href,'telefony-tv-i-ehlektronika')][@name='fat_menu_link']", timeout=10)
         self.goods_home_link =  self.w_xpath("//a[contains(@href,'tovary-dlya-doma')][@name='fat_menu_link']", timeout=10)
