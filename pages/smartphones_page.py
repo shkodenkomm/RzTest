@@ -42,11 +42,7 @@ class Smartphones(BasePageGoods):
             rp.extend(list(map(lambda e: e.text, qp)))
 
         for N in range(2, maxPage+1):
-            WebDriverWait(self.drv, 10).until(
-                expected_conditions.element_to_be_clickable(
-                    (By.XPATH, self.xpath_page.format(N)))). \
-                click()
-
+            self.w_xpath(self.xpath_page.format(N)).click()
             sleep(3)
             qt = self.w_xpathes(titles, 2)
             qp = self.w_xpathes(prises, 2)

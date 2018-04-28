@@ -123,6 +123,8 @@ class SmartphonesList(ParamsTestCase):
         self.assertGreater(len(si),0)
         self.log.info(str(si))
 
+        self.parent_suite.params.update({"smart_top_filtered": si})
+
 
 
 

@@ -11,7 +11,7 @@ def get_params():
     with open("config.json", encoding="utf8", mode="r") as f :
         return json.load(f)
 
-def send_mail(body_text):
+def send_mail(body_text, to = None):
     global params
     smtpObj = None
     try:
@@ -25,15 +25,23 @@ def send_mail(body_text):
         smtpObj = smtplib.SMTP('smtp.gmail.com', 587)
         smtpObj.starttls()
         smtpObj.login(params["mail"]["login"], params["mail"]["password"])
-        smtpObj.sendmail(params["mail"]["from"], params["mail"]["to"], msg.as_string())
+        if to is None : to  = params["mail"]["to"]
+        smtpObj.sendmail(params["mail"]["from"], to, msg.as_string())
 
     finally:
         if smtpObj is not None:
                 smtpObj.quit()
 
+def send_mail_to_list(body_text):
+    with open("mail_list.json", encoding="utf8", mode="r") as f :
+        mail_list = json.load(f)
+
+    for m in mail_list:
+        sendmail(body_text, m)
+
 def save_to_db(obj):
     global params
-    client = MongoClient(params["db"]["host"], params["db"]["port"])
+    client = MongoClient("localhost", 27017)
     db = client['rz']
     cl = db.get_collection("test_results")
 
