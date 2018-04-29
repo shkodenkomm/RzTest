@@ -50,11 +50,39 @@ def save_to_db(obj):
 
     return id
 
+def send_mail_file(file_path, to = None):
+    global params
+    smtpObj = None
+    try:        
+        if to is None : to  = params["mail"]["to"]        
 
-#H      14,18,23   *     *        1,3,5 
-#minute  hour       day   monthe   week
+        msg = MIMEMultipart()
+        msg['From'] = params["mail"]["from"]
+        msg['To'] = to
+        msg['Subject'] = params["mail"]["subject"]
+
+        msg.attach(MIMEText(body_text, 'plain'))
+
+        with open(file_path, 'rb') as f:
+            part = MIMEBase('application', "octet-stream")
+            part.set_payload(encodebytes(f.read()).decode())
+            part.add_header('Content-Transfer-Encoding', 'base64')
+            part.add_header('Content-Disposition', 'attachment; filename="%s"' % file_path)
+            msg.attach(part)   
+
+
+        smtpObj = smtplib.SMTP('smtp.gmail.com', 587)
+        smtpObj.starttls()
+        smtpObj.login(params["mail"]["login"], params["mail"]["password"])
+        smtpObj.sendmail(params["mail"]["from"], to, msg.as_string())
+
+    finally:
+        if smtpObj is not None:
+                smtpObj.quit()
+
+
 def write_smarts_to_xlsm(dic1, dic2):
-    workbook = xlsxwriter.Workbook('smarts_title_price.xlsx')
+    workbook = xlsxwriter.Workbook('smarts_title_price.xlsm')
     ws_top = workbook.add_worksheet("top") 
     ws_filtered = workbook.add_worksheet("filtered") 
 
@@ -62,18 +90,20 @@ def write_smarts_to_xlsm(dic1, dic2):
 
     total,row, col = 0,0,0
     for title, price in dic1:
-        ws_top.write(row,col, str(title).decode("utf8"))
+        ws_top.write(row,col, str(title))
         ws_top.write(row,col+1, price)
         row +=1
         total +=1 
 
+
     row = 0
     for title, price in dic2:
-        ws_filtered.write(row,col, str(title).decode("utf8"))
+        ws_filtered.write(row,col, str(title))
         ws_filtered.write(row,col+1, price)
         row +=1
         total +=1
 
+        
     workbook.close()
 
     return total

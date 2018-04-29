@@ -17,7 +17,7 @@ class SmartphonesList(ParamsTestCase):
 
         cls.drv = webdriver.Chrome()
         cls.drv.set_window_size(1200, 700)
-        cls.drv.set_window_position(0, 0)
+        cls.drv.set_window_position(-1000, 0)
         cls.drv.implicitly_wait(2)
 
         cls.log = logging.getLogger('messages')

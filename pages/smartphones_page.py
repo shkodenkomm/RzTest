@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
 from pages.base_page_goods import BasePageGoods
-
+from operator import itemgetter
 
 class Smartphones(BasePageGoods):
 
@@ -38,7 +38,7 @@ class Smartphones(BasePageGoods):
         qp = self.w_xpathes(prises, 2)
 
         if qt is not None:
-            rt.extend(list(map(lambda e: e.text.encode("utf8"), qt)))
+            rt.extend(list(map(lambda e: e.text, qt)))
             rp.extend(list(map(lambda e: e.text, qp)))
 
         for N in range(2, maxPage+1):
@@ -48,12 +48,14 @@ class Smartphones(BasePageGoods):
             qp = self.w_xpathes(prises, 2)
 
             if qt is not None :
-                rt.extend(list(map(lambda e: e.text.encode("utf8"), qt)))
+                rt.extend(list(map(lambda e: e.text, qt)))
                 rp.extend(list(map(lambda e: e.text, qp)))
 
         r=[]
         for i in range(len(rt)):
-            r.append((rt[i],rp[i]))
+            r.append((str(rt[i]),rp[i]))
+
+        r = sorted(r,key=itemgetter(2), reverse=true)
 
         return r
 
@@ -81,13 +83,14 @@ class Smartphones(BasePageGoods):
             qp = self.w_xpathes(prises, 2)
 
             if qt is not None:
-                rt.extend(list(map(lambda e: e.text.encode("utf8"), qt)))
+                rt.extend(list(map(lambda e: e.text, qt)))
                 rp.extend(list(map(lambda e: e.text, qp)))
 
         r = []
         for i in range(len(rt)):
             r.append((rt[i], rp[i]))
 
+        r = sorted(r,key=itemgetter(2), reverse=true)
         return r
 
 
