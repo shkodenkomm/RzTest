@@ -55,7 +55,7 @@ class Smartphones(BasePageGoods):
         for i in range(len(rt)):
             r.append((str(rt[i]),rp[i]))
 
-        r = sorted(r,key=itemgetter(2), reverse=true)
+        r = sorted(r,key=itemgetter(1), reverse=True)
 
         return r
 
@@ -90,7 +90,7 @@ class Smartphones(BasePageGoods):
         for i in range(len(rt)):
             r.append((rt[i], rp[i]))
 
-        r = sorted(r,key=itemgetter(2), reverse=true)
+        r = sorted(r,key=itemgetter(1), reverse=True)
         return r
 
 
