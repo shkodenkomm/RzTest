@@ -1,5 +1,6 @@
 import json
 import smtplib
+import xlsxwriter
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -48,3 +49,31 @@ def save_to_db(obj):
     id = cl.insert_one(obj)
 
     return id
+
+
+#H      14,18,23   *     *        1,3,5 
+#minute  hour       day   monthe   week
+def write_smarts_to_xlsm(dic1, dic2):
+    workbook = xlsxwriter.Workbook('smarts_title_price.xlsx')
+    ws_top = workbook.add_worksheet("top") 
+    ws_filtered = workbook.add_worksheet("filtered") 
+
+    # dic1 :  [(title, price),() ....]
+
+    total,row, col = 0,0,0
+    for title, price in dic1:
+        ws_top.write(row,col, str(title).decode("utf8"))
+        ws_top.write(row,col+1, price)
+        row +=1
+        total +=1 
+
+    row = 0
+    for title, price in dic2:
+        ws_filtered.write(row,col, str(title).decode("utf8"))
+        ws_filtered.write(row,col+1, price)
+        row +=1
+        total +=1
+
+    workbook.close()
+
+    return total

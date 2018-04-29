@@ -38,6 +38,7 @@ def run():
         suite.addTest(SmartphonesList("test4_open_smartphones"))
         suite.addTest(SmartphonesList("get_top_smart_title_price"))
         suite.addTest(SmartphonesList("get_smart_title_price_3000_6000"))
+        suite.addTest(SmartphonesList("set_info_to_xlsm_mail"))
 
     runner.run(suite)
 

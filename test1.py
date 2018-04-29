@@ -126,6 +126,17 @@ class SmartphonesList(ParamsTestCase):
         self.parent_suite.params.update({"smart_top_filtered": si})
 
 
+    def set_info_to_xlsm_mail(self):
+        self.assertTrue("smart_top" in self.parent_suite.params)
+        smart_top = self.parent_suite.params["smart_top"]
+        self.assertTrue("smart_top_filtered" in self.parent_suite.params)
+        smart_top_filtered = self.parent_suite.params["smart_top_filtered"]
+
+        count = utils.write_smarts_to_xlsm(smart_top, smart_top_filtered)
+        self.assertGreater(count, 0)
+
+
+
 
 
 
