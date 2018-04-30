@@ -40,6 +40,7 @@ def run():
         suite.addTest(SmartphonesList("get_smart_title_price_3000_6000"))
         suite.addTest(SmartphonesList("set_info_to_xlsm_mail"))
 
+
     runner.run(suite)
 
 if __name__ =='__main__':

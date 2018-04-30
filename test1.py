@@ -132,8 +132,12 @@ class SmartphonesList(ParamsTestCase):
         self.assertTrue("smart_top_filtered" in self.parent_suite.params)
         smart_top_filtered = self.parent_suite.params["smart_top_filtered"]
 
-        count = utils.write_smarts_to_xlsm(smart_top, smart_top_filtered)
+        file = 'smarts_title_price.xlsm'
+        count = utils.write_smarts_to_xlsm(file, smart_top, smart_top_filtered)
         self.assertGreater(count, 0)
+
+        utils.send_mail_file(file)
+    
 
 
 

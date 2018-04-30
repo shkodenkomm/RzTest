@@ -3,6 +3,8 @@ import smtplib
 import xlsxwriter
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from base64 import encodebytes
 
 from pymongo import MongoClient
 
@@ -61,7 +63,7 @@ def send_mail_file(file_path, to = None):
         msg['To'] = to
         msg['Subject'] = params["mail"]["subject"]
 
-        msg.attach(MIMEText(body_text, 'plain'))
+        msg.attach(MIMEText("заголовок и цена", 'plain'))
 
         with open(file_path, 'rb') as f:
             part = MIMEBase('application', "octet-stream")
@@ -81,8 +83,8 @@ def send_mail_file(file_path, to = None):
                 smtpObj.quit()
 
 
-def write_smarts_to_xlsm(dic1, dic2):
-    workbook = xlsxwriter.Workbook('smarts_title_price.xlsm')
+def write_smarts_to_xlsm(file_path, dic1, dic2):
+    workbook = xlsxwriter.Workbook(file_path)
     ws_top = workbook.add_worksheet("top") 
     ws_filtered = workbook.add_worksheet("filtered") 
 
