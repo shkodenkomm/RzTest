@@ -43,7 +43,7 @@ class Smartphones(BasePageGoods):
 
         for N in range(2, maxPage+1):
             self.w_xpath(self.xpath_page.format(N)).click()
-            sleep(3)
+            sleep(4)
             qt = self.w_xpathes(titles, 2)
             qp = self.w_xpathes(prises, 2)
 
